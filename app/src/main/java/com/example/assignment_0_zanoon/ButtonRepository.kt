@@ -8,6 +8,8 @@ class ButtonRepository {
         Button("No", 10)
     )
 
+    val buttons: List<Button>
+        get() = _buttons
 
     fun getText(individualButton: Button): String {
         return individualButton.text

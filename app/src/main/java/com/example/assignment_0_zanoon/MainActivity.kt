@@ -18,11 +18,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val buttonRepository = ButtonRepository()
         setContent {
             Assignment_0_zanoonTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     ButtonScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        buttons = buttonRepository.buttons,
+                        modifier = Modifier.padding(innerPadding),
+                        onGetOutput = { button -> buttonRepository.getOutput(button) }
                     )
                 }
             }

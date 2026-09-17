@@ -1,15 +1,18 @@
 package com.example.assignment_0_zanoon
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,7 +31,7 @@ import androidx.compose.ui.unit.sp
        the output via the repository method.
 */
 @Composable
-fun ButtonScreen(modifier: Modifier = Modifier) {
+fun ButtonScreen(buttons: List<Button>, modifier: Modifier = Modifier, onGetOutput: (Button) -> String) {
     var showOutputText by remember { mutableStateOf("")}
     var selectedButton by remember { mutableStateOf<Button?>(null) }
 
@@ -36,14 +39,13 @@ fun ButtonScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.DarkGray)
     ) {
         // Row Containing name and Text heading
-        Row(
+        Column(
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Zanoon Hassan", fontSize = 8.sp)
-            Text("CMPUT_301 - Assignment 0", fontSize = 8.sp)
+            Text("Zanoon Hassan", fontSize = 20.sp)
+            Text("CMPUT_301 - Assignment 0", fontSize = 20.sp)
 
 
         }
@@ -53,56 +55,45 @@ fun ButtonScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth()
+            Column(
+                verticalArrangement = Arrangement.Center
             ) {
-                Button(
-                    modifier = Modifier.padding(vertical = 12.dp),
-                    onClick = {}
-
-
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(18.dp)
                 ) {
-                    Text("Button1")
+                    buttons.forEachIndexed { index, button ->
+                        FilledTonalButton(
+                            modifier = Modifier.padding(8.dp),
+                            onClick = {
+                                selectedButton = button
+                                showOutputText = onGetOutput(button)
+
+                            }
+                        ) {
+                            Text(button.text)
+                        }
+                    }
                 }
-                Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    modifier = Modifier.padding(vertical = 12.dp),
-                    onClick = {}
 
-
-                ) {
-                    Text("Button2")
-                }
-
-
-                Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    modifier = Modifier.padding(vertical = 12.dp),
-                    onClick = {}
-
-
-                ) {
-                    Text("Button3")
+                if (showOutputText.isNotBlank()) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(showOutputText)
+                    }
                 }
             }
+
         }
         // This is the UI section for showing the output based on the button pressed
-        if (showOutputText.isNotBlank()) {
-            Box(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(showOutputText)
-            }
-        }
+
     }
 }
 
 
 @Composable
-fun ButtonItself(button: Button, modifier: Modifier) {
+fun ButtonItself(IndividualButton: Button, modifier: Modifier) {
     // This is where the UI for each button will hold
-
-
-
 
 }
